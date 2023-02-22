@@ -6,28 +6,34 @@
 /*   By: aabdyker <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:43 by aabdyker          #+#    #+#             */
-/*   Updated: 2023/02/21 15:40:06 by aabdyker         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:45:23 by aabdyker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
+#include <unistd.h>
 
 void	ft_putstr_non_printable(char *str)
 {
-	int		i;
+	char	hex[4];
 
-	i = 0;
-	while (str[i] != '\0')
+	while (*str != '\0')
 	{
-		if (str[i] <= 31 || str[i] == 127)
-			str[i] = 0xff;
-		i++;
+		if (*str >= 32 && *str <= 126)
+			write(1, &str, 1);
+		else
+		{
+			hex[0] = '\\';
+			hex[1] = "0123456789abcdef"[*str >> 4 & 0xff];
+			hex[2] = "0123456789abcdef"[*str & 0xff];
+			write(1, &hex, 3);
+		}
+		str++;
 	}
 }
 /*
 int main()
 {
-	char	str[] = "Hello\n";
+	char	str[10] = "Hello\n";
 	ft_putstr_non_printable(str);
 	return(0);
 }*/

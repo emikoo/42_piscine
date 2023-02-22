@@ -34,7 +34,7 @@ char	*ft_strcapitalize(char *str)
 	i = 0;
 	ft_strlowcase(str);
 	if (str[i] >= 'a' && str[i] <= 'z')
-		str[j] -= 32;
+		str[i] -= 32;
 	while (str[i] != '\0')
 	{
 		j = i + 1;
